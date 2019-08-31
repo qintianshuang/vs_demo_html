@@ -64,7 +64,7 @@
               :class="menuitemClasses"
               @on-select="onclick">
 
-          <Submenu v-for="(item , index) in $router.options.routes"
+          <Submenu v-for="(item , index) in menuList"
                    v-if="item.meta.menuShow"
                    :name="item.meta.menuName">
             <template slot="title">
@@ -85,13 +85,12 @@
               closable
               :style="{padding: '24px', minHeight: '1100px', background: '#fff'}"
               @on-tab-remove="handleTabRemove"
-              @on-click="onclickTabs"
-              value="tabIndex">
-          <TabPane :label="itemMenu.meta.menuName"
-                   v-for="(itemMenu , index) in menuList"
+              @on-click="onclickTabs">
+          <TabPane v-for="(x , index) in tabList"
+                   :label="x.meta.menuName"
+                   :name="x.path"
                    :key="index"
-                   :v-if="'tab' + index"
-                   value="tabIndex">
+                   v-if="!is">
             <div>
               <router-view></router-view>
             </div>
@@ -107,10 +106,11 @@ import Plan from './common/plan'
 export default {
   data () {
     return {
-      tabIndex: '',
+      tabIndex: '1',
       tabName: '',
       isCollapsed: false,
-      menuList: []
+      menuList: [],
+      tabList: []
     }
   },
   components: {
@@ -131,57 +131,52 @@ export default {
     }
   },
   methods: {
+    init () {
+      this.$router.options.routes.forEach((item, index) => {
+        this.menuList.push(item)
+        item.children.forEach((value, index) => {
+          value.is = true
+          this.tabList.push(value)
+        })
+      })
+      console.log(this.tabList)
+    },
     collapsedSider () {
       this.$refs.side1.toggleCollapse()
     },
     handleTabRemove (name) {
-      // this['tab' + name] = false
-      // debugger
-      // if (this.menuList.length > 0) {
-      //   let menuList = this.menuList
-      //   this.menuList = []
-      //   menuList.forEach((item, index) => {
-      //     if (name !== index) {
-      //       this.menuList.push(item)
-      //     }
-      //   })
-      //   console.log(this.menuList)
-      // }
+      this.tabList.map((v, k) => {
+        console.log(v)
+        if (name === v.path) {
+          v.is = false
+        }
+      })
     },
-    onclick (name) {
-      var keys = false
-      if (this.menuList.length > 0) {
-        debugger
-        this.menuList.forEach((item, index) => {
-          debugger
-          if (name.meta.menuName === item.meta.menuName) {
-            this['tab' + name] = true
-            console.log(name)
-            this.$router.push(name.path)
-            keys = true
-          } else {
-            this['tab' + name] = false
-          }
-        })
-      }
-      if (!keys) {
-        debugger
-        this.menuList.push(name)
-      }
+    onclick (data) {
+      this.tabList.map((v, k) => {
+        console.log(v)
+        if (data.path === v.path) {
+          v.is = true
+          this.tabIndex = v.path
+          this.$router.push(v.path)
+        }
+      })
     },
     onclickTabs (name) {
-      debugger
-      console.log(name)
-      // onclick(name)
-      this.menuList.forEach((item, index) => {
-        if (name === index) {
-          this['tab' + name] = true
-          console.log(name)
+      this.tabList.forEach((item, index) => {
+        if (name === item.path) {
+          item.is = true
+          this.tabIndex = item.path
           this.$router.push(item.path)
         }
-      }
-      )
+      })
     }
+  },
+  created () {
+    this.init()
+  },
+  mounted () {
+
   }
 }
 </script>
