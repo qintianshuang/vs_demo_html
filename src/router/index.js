@@ -1,13 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import iView from 'iview'
-// import ElementUI from 'element-ui'
-
-// import Routers from './router'
 import 'iview/dist/styles/iview.css'
-import HelloWorld from '@/components/HelloWorld'
-import Layout from '@/components/Layout'
-import Login from '@/components/login'
+import ElementUI from 'element-ui'
 import Home from '@/components/home'
 import Index from '@/components/common/index'
 import IndexSelect from '@/components/common/indexSelect'
@@ -15,7 +10,9 @@ import LoadMoreUp from '@/components/common/loadMoreUp'
 import Year from '@/components/common/year'
 import Month from '@/components/common/month'
 import Plan from '@/components/common/plan'
+import locale from 'element-ui/lib/locale/lang/en'
 
+Vue.use(ElementUI, { locale })
 Vue.use(Router)
 Vue.use(iView)
 
@@ -23,36 +20,6 @@ Vue.use(iView)
 // menuName导航栏中显示的名称
 export default new Router({
   routes: [
-    // {
-    //   path: '/',
-    //   redirect: '/home',
-    //   meta: {
-    //     menuShow: false
-    //   }
-    // },
-    // {
-    //   path: '/home',
-    //   name: 'home',
-    //   component: Home,
-    //   meta: {
-    //     menuShow: false
-    //   }
-    // },
-    // {
-    //   path: '/common/index',
-    //   name: 'index',
-    //   component: Index
-    // },
-    // {
-    //   path: '/common/indexSelect',
-    //   name: 'indexSelect',
-    //   component: IndexSelect
-    // },
-    // {
-    //   path: '/common/loadMoreUp',
-    //   name: 'loadMoreUp',
-    //   component: LoadMoreUp
-    // },
     {
       path: '/',
       name: 'home',

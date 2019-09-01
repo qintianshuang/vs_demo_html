@@ -1,7 +1,7 @@
 <style scoped>
 calculate form input{
 width:220px;
-height:100px;
+height:40px;
 line-height:40px;
 outline:none;
 border:none;
@@ -13,15 +13,15 @@ vertical-align:middle;
 }
 </style>
 <template>
-  <div class="calculate">
+  <div>
     <!-- <div> -->
-      <label type="left">机构名称：</label>
+      <label type="left">机构1名称：</label>
       <Input v-model="value"
-             placeholder="请输入2"
+             placeholder="请输入1"
              style="width: 200px" />
-      <label>学校名称：</label>
+      <label>学校2名称：</label>
       <Input v-model="value"
-             placeholder="请输入2"
+             placeholder="请输入1"
              style="width: 200px" />
     <!-- </div> -->
     <br>
