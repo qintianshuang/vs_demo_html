@@ -106,6 +106,7 @@ import Plan from './common/plan'
 export default {
   data () {
     return {
+      is: false,
       tabIndex: '1',
       tabName: '',
       isCollapsed: false,
