@@ -44,34 +44,34 @@ calculate form input {
     <div :style="{padding: '0px 24px 60px'}">
       <div :style="{float:'left'}">
         <Button type="primary"
-                @click="adduser">添加用户</Button>&#12288;&#12288;
+                @click="add">添加用户</Button>&#12288;&#12288;
       </div>
       <div :style="{float:'left'}">
         <Button type="primary"
-                @click="edituser">修改用户</Button>
+                @click="edit">修改用户</Button>
       </div>
     </div>
     <div>
-      <template>
-        <div :style="{padding: '0 24px 24px',minHeight: '80px'}">
-          <Table stripe
-                 size="large"
-                 :columns="columns"
-                 :data="dataList"
-                 :style="{padding: '0 0px 0px',minHeight: '0px'}"></Table>
-        </div>
-      </template>
+      <div :style="{padding: '0 24px 24px',minHeight: '80px'}">
+        <Table stripe
+               size="large"
+               :columns="columns"
+               :data="dataList"></Table>
+      </div>
     </div>
     <div>
-      <add-user :ok='ok'></add-user>
+      <add-user :modal="this.addModle"></add-user>
     </div>
   </div>
 </template>
 <script>
-import { addUser } from '/component/user/add/addUser'
+import addUser from '@/components/user/addUser.vue'
 export default {
   data () {
     return {
+      // modal1: false,
+      addModle:false,
+      editModle:false,
       value: '',
       name: '小红',
       age: '',
@@ -105,14 +105,11 @@ export default {
     }
   },
   components: {
-    'addUser': addUser
+    addUser
   },
   computed: {
   },
   methods: {
-    init () {
-
-    },
     onClickName (value) {
       debugger
       console.log(value)
@@ -123,19 +120,25 @@ export default {
       console.log(value)
       this.age = value
     },
-    // clickParent() {
-    //     this.$refs.mychild.parentHandleclick("嘿嘿嘿");
-    //   }
-    adduser () {
-      this.$refs.addUser.ok()
+    add () {
+      debugger
+      // this.$refs.addUser.ok()
+      this.addModle = true
     },
+    edit () {
+      // debugger
+      // this.$refs.addUser.cancel()
+    },
+    // activiName (data) {
+    //   debugger
+    //   this.modal1 = true
+    // },
     onClick (name) {
       let param = {
         name: this.name
       }
       this.http.get(this.ports.employee.queryEmployeeByName, { param }, res => {
         if (res.success) {
-          debugger
           let result = []
           result = res.data
           this.dataList = result
@@ -160,7 +163,7 @@ export default {
     }
   },
   created () {
-    this.init()
+    // this.activiName()
   }
 }
 </script>

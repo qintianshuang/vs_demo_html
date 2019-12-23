@@ -50,10 +50,13 @@
   vertical-align: middle;
   font-size: 22px;
 }
+.ivu-layout i {
+  max-width: 100%;
+}
 </style>
 <template>
   <div class="layout">
-    <Layout>
+    <Layout style="max-width:100%">
       <Sider ref="side1"
              hide-trigger
              collapsible
@@ -67,7 +70,8 @@
               @on-select="onclick">
           <Submenu v-for="(item, index) in menuList"
                    v-if="item.meta.menuShow"
-                   :name="item.meta.menuName">
+                   :name="item.meta.menuName"
+                   :key="index">
             <template slot="title">
               <Icon :type="item.meta.menuStyle" /><span>{{item.meta.menuName}}</span>
             </template>
@@ -90,11 +94,8 @@
           <TabPane v-for="(x , index) in tabList"
                    :label="x.meta.menuName"
                    :name="x.path"
-                   :key="index"
-                   v-if="x.is">
-            <div>
-              <router-view></router-view>
-            </div>
+                   :key="index">
+            <router-view></router-view>
           </TabPane>
         </Tabs>
       </Layout>
@@ -105,7 +106,6 @@
 export default {
   data () {
     return {
-      // is: false,
       tabIndex: '1',
       tabName: '',
       isCollapsed: false,
@@ -148,6 +148,15 @@ export default {
     handleTabRemove (name) {
       debugger
       this.tabList.splice(name, 1)
+      console.log(this.tabList)
+      // let arr = this.tabList
+      // this.tabList = []
+      // arr.map((v, k) => {
+      //   if (name !== k) {
+      //     // key = true
+      //     this.tabList.push(v)
+      //   }
+      // })
     },
     onclick (data) {
       let key = false
@@ -158,13 +167,11 @@ export default {
           this.$router.push(v.path)
         }
       })
-      debugger
       if (!key) {
         this.menuList.map((value, k) => {
           value.children.map((v, k) => {
             if (data === v.path) {
-              debugger
-              v.is = true
+              // v.is = true
               this.tabList.push(v)
               this.tabIndex = v.path
               this.$router.push(v.path)
@@ -175,13 +182,8 @@ export default {
       console.log(this.tabList)
     },
     onclickTabs (name) {
-      this.tabList.forEach((item, index) => {
-        if (name === item.path) {
-          item.is = true
-          this.tabIndex = item.path
-          this.$router.push(item.path)
-        }
-      })
+      this.tabIndex = name
+      this.$router.push(name)
     }
   },
   created () {

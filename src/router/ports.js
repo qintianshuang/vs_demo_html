@@ -11,7 +11,7 @@ export default {
    * 用户登录验证
    */
   pwd: {
-    sendEmail: '/manage/user/sendEmail',// 获取邮件
+    sendEmail: '/manage/user/sendEmail', // 获取邮件
     resetPwd: '/manage/user/passwordReset'// 获取验证码
   },
   /***

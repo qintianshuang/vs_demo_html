@@ -15,7 +15,14 @@ function handleResults (response) {
   }
   let status = response.status
   if (status === 200) {
-    result.data = remoteResponse.data
+    if (remoteResponse.data === null
+      || remoteResponse.data === 'null'
+      || remoteResponse.data === '' 
+      || remoteResponse.data.length === 0) {
+      result.data = null
+    } else {
+      result.data = remoteResponse.data
+    }
     result.success = remoteResponse.success
   } else {
     this.$Notice.error({
