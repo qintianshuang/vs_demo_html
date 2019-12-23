@@ -3,13 +3,13 @@ import Router from 'vue-router'
 import iView from 'iview'
 import 'iview/dist/styles/iview.css'
 import ElementUI from 'element-ui'
-import Home from '@/components/home'
-import Index from '@/components/common/index'
-import IndexSelect from '@/components/common/indexSelect'
-import LoadMoreUp from '@/components/common/loadMoreUp'
-import Year from '@/components/common/year'
-import Month from '@/components/common/month'
-import Plan from '@/components/common/plan'
+import Home from '@/views/common/home'
+import Plan from '@/views/plan/year'
+import Season from '@/views/plan/season'
+import Month from '@/views/plan/month'
+import User from '@/views/manage/user'
+import Role from '@/views/manage/role'
+import Main from '@/views/manage/main'
 import locale from 'element-ui/lib/locale/lang/en'
 
 Vue.use(ElementUI, { locale })
@@ -27,42 +27,41 @@ export default new Router({
       meta: {
         menuShow: true,
         menuName: '系统管理',
-        menuStyle: 'md-construct'
+        menuStyle: 'ios-apps'
       },
       children: [
         {
-          path: '/common/index',
-          name: 'index',
-          component: Index,
-          meta: {
-            menuShow: true,
-            menuName: '组织架构',
-            menuStyle: 'logo-buffer'
-          }
-        },
-        {
-          path: '/common/indexSelect',
-          name: 'indexSelect',
-          component: IndexSelect,
+          path: '/manage/user',
+          name: 'user',
+          component: User,
           meta: {
             menuShow: true,
             menuName: '用户管理',
-            menuStyle: 'md-contacts'
+            menuStyle: 'ios-man'
           }
         },
         {
-          path: '/common/loadMoreUp',
-          name: 'loadMoreUp',
-          component: LoadMoreUp,
+          path: '/manage/role',
+          name: 'role',
+          component: Role,
           meta: {
             menuShow: true,
-            menuName: '系统设置',
-            menuStyle: 'ios-cog'
+            menuName: '权限管理',
+            menuStyle: 'ios-key'
+          }
+        },
+        {
+          path: '/manage/main',
+          name: 'main',
+          component: Main,
+          meta: {
+            menuShow: true,
+            menuName: '菜单管理',
+            menuStyle: 'ios-grid'
           }
         }
       ]
-    }
-    ,
+    },
     {
       path: '/',
       name: 'home',
@@ -70,17 +69,27 @@ export default new Router({
       meta: {
         menuShow: true,
         menuName: '计划管理',
-        menuStyle: 'ios-apps'
+        menuStyle: 'md-construct'
       },
       children: [
         {
-          path: '/common/year',
-          name: 'year',
-          component: Year,
+          path: '/common/plan',
+          name: 'plan',
+          component: Plan,
           meta: {
             menuShow: true,
             menuName: '年度计划',
-            menuStyle: 'md-browsers'
+            menuStyle: 'logo-buffer'
+          }
+        },
+        {
+          path: '/common/season',
+          name: 'season',
+          component: Season,
+          meta: {
+            menuShow: true,
+            menuName: '季度计划',
+            menuStyle: 'md-contacts'
           }
         },
         {
@@ -90,17 +99,7 @@ export default new Router({
           meta: {
             menuShow: true,
             menuName: '月度计划',
-            menuStyle: 'md-moon'
-          }
-        },
-        {
-          path: '/common/plan',
-          name: 'plan',
-          component: Plan,
-          meta: {
-            menuShow: true,
-            menuName: '推送计划',
-            menuStyle: 'ios-partly-sunny'
+            menuStyle: 'ios-cog'
           }
         }
       ]
