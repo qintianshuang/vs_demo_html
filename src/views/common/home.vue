@@ -56,7 +56,7 @@
 </style>
 <template>
   <div class="layout">
-    <Layout style="max-width:100%">
+    <Layout style="max-width:100%;max-height:100%">
       <Sider ref="side1"
              hide-trigger
              collapsible

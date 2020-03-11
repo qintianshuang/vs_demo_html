@@ -56,22 +56,27 @@ calculate form input {
         <Table stripe
                size="large"
                :columns="columns"
-               :data="dataList"></Table>
+               :data="dataList">
+        </Table>
       </div>
     </div>
     <div>
       <add-user :modal="this.addModle"></add-user>
     </div>
+    <div>
+      <edit-user :modal="this.addModle"></edit-user>
+    </div>
   </div>
 </template>
 <script>
 import addUser from '@/components/user/addUser.vue'
+import editUser from '@/components/user/editUser.vue'
 export default {
   data () {
     return {
-      // modal1: false,
-      addModle:false,
-      editModle:false,
+      modal1: false,
+      addModle: true,
+      editModle: true,
       value: '',
       name: '小红',
       age: '',
@@ -105,7 +110,7 @@ export default {
     }
   },
   components: {
-    addUser
+    addUser, editUser
   },
   computed: {
   },
@@ -122,20 +127,16 @@ export default {
     },
     add () {
       debugger
-      // this.$refs.addUser.ok()
       this.addModle = true
     },
     edit () {
-      // debugger
-      // this.$refs.addUser.cancel()
+      debugger
+      this.editModle = true
     },
-    // activiName (data) {
-    //   debugger
-    //   this.modal1 = true
-    // },
     onClick (name) {
       let param = {
-        name: this.name
+        name: this.name,
+        age: this.age
       }
       this.http.get(this.ports.employee.queryEmployeeByName, { param }, res => {
         if (res.success) {
